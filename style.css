@@ -1,0 +1,22 @@
+body{
+    background-color: #1d2951;
+}
+
+.submit{
+    display: flex;
+    justify-content: center;
+}
+
+.submit input{
+    background-color: #f2f3f4;
+    border-radius: 5px;
+}
+
+.submit input::placeholder{
+    text-align: center;
+}
+
+.submit:focus{
+    border: none;
+}
+
