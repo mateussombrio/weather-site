@@ -20,17 +20,18 @@ body {
 
 .submit {
   display: flex;
-  background-color: blue;
   height: 10%;
   align-items: center;
   justify-content: center;
   width: 25%;
 }
 
-.submit input[type='text'] {
+.submit input[type="text"] {
   background-color: #f2f3f4;
   border-radius: 5px;
   width: 50%;
+  height: 30%;
+  margin-right: 5px;
 }
 
 .submit input {
@@ -46,6 +47,11 @@ body {
   border: none;
 }
 
+.submit input[type="button"] {
+  height: 35%;
+  background-color: red;
+}
+
 .cards-div {
   display: flex;
   width: 75%;
@@ -55,11 +61,53 @@ body {
 }
 
 .card {
-  border-color: #f2f3f4;
-  background-color: aqua;
+  border: #f2f3f4 1px solid;
   width: 20%;
   height: 80%;
   margin: 20px;
   display: flex;
   flex-direction: column;
+  border-radius: 5px;
+  align-items: center;
+
+  -webkit-box-shadow: 10px 10px 5px 0px #00000059;
+  -moz-box-shadow: 10px 10px 5px 0px #00000059;
+  box-shadow: 10px 10px 5px 0px #00000059;
+}
+
+.card h2,
+h3 {
+  color: #f2f3f4;
+}
+
+.weather-icon {
+  width: 64px;
+  height: 64px;
+}
+
+.parameter-main {
+  display: flex;
+  background-color: rgba(105, 105, 105, 0.3);
+  border-radius: 5px;
+  width: fit-content;
+  height: fit-content;
+  margin-top: 20%;
+}
+
+.parameter {
+  justify-content: center;
+  margin: 20px;
+  margin-bottom: 0;
+}
+
+.parameter h3{
+  margin-top: 5px;
+}
+
+.linha-vertical {
+  width: 1px;
+  background-color: #f2f3f4;
+  height: 35%;
+  margin-top: 15%;
+  opacity: 50%;
 }
