@@ -3,6 +3,7 @@ const searchBar = document.querySelector(".submit input[type='text']")
 const submitBox = document.querySelector(".submit input[type='button']")
 const city = document.querySelector("#city")
 const week_day = document.querySelector("#day")
+const state = document.querySelector("#state")
 
 
 async function getLocation(location) {
@@ -33,10 +34,11 @@ async function getWeather(location) {
   };
 }
 
-form.addEventListener('submit', async e =>{
+formSearch.addEventListener('submit', async e =>{
    e.preventDefault()
    const location = searchBar.value.trim()
-   getLocation(location)
-   getWeather(location)
-   const city_name = city.appendChild(name)
+   const locationData = await getLocation(location)
+   const weatherData = await getWeather(location)
+   city.textContent = locationData.name
+   state.textContent = weatherData.state
 })
