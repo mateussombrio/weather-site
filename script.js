@@ -1,10 +1,25 @@
-const formSearch = document.querySelector('#formulario')
-const searchBar = document.querySelector(".submit input[type='text']")
-const submitBox = document.querySelector(".submit input[type='button']")
-const city = document.querySelector("#city")
-const week_day = document.querySelector("#day")
-const state = document.querySelector("#state")
+const formSearch = document.querySelector("#formulario");
+const searchBar = document.querySelector(".submit input[type='text']");
+const submitBox = document.querySelector(".submit input[type='button']");
+const city = document.querySelector("#city");
+const week_day = document.querySelector("#day");
+const state = document.querySelector("#state");
+const temp = document.querySelector('#temperature')
+const high_temp = document.querySelector("#high-temp")
+const low_temp = document.querySelector("#low-temp")
+const wind = document.querySelector("#wind")
 
+const days = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+const today = new Date();
+const weekDay = days[today.getDay()];
 
 async function getLocation(location) {
   const res = await fetch(
@@ -34,11 +49,16 @@ async function getWeather(location) {
   };
 }
 
-formSearch.addEventListener('submit', async e =>{
-   e.preventDefault()
-   const location = searchBar.value.trim()
-   const locationData = await getLocation(location)
-   const weatherData = await getWeather(location)
-   city.textContent = locationData.name
-   state.textContent = weatherData.state
-})
+formSearch.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const location = searchBar.value.trim();
+  const locationData = await getLocation(location);
+  const weatherData = await getWeather(location);
+  city.textContent = locationData.name;
+  state.textContent = weatherData.state;
+  week_day.textContent = weekDay;
+  temp.textContent = weatherData.current_temp + 'º'
+  high_temp.textContent = weatherData.max_temp + 'º'
+  low_temp.textContent = weatherData.min_temp + 'º'
+  wind.textContent = weatherData.wind_speed + 'Km/h'
+});

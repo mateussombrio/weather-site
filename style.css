@@ -30,8 +30,8 @@ body {
 .submit input[type="text"] {
   background-color: #f2f3f4;
   border-radius: 5px;
-  width: 50%;
-  height: 30%;
+  width: 75%;
+  height: 100%;
   margin-right: 5px;
 }
 
@@ -49,7 +49,7 @@ body {
 }
 
 .submit input[type="button"] {
-  height: 35%;
+  height: 100%;
   background-color: red;
 }
 
