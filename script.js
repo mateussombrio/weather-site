@@ -4,10 +4,11 @@ const submitBox = document.querySelector(".submit input[type='button']");
 const city = document.querySelector("#city");
 const week_day = document.querySelector("#day");
 const state = document.querySelector("#state");
-const temp = document.querySelector('#temperature')
-const high_temp = document.querySelector("#high-temp")
-const low_temp = document.querySelector("#low-temp")
-const wind = document.querySelector("#wind")
+const temp = document.querySelector("#temperature");
+const high_temp = document.querySelector("#high-temp");
+const low_temp = document.querySelector("#low-temp");
+const wind = document.querySelector("#wind");
+const cards = document.querySelector(".card");
 
 const days = [
   "Sunday",
@@ -57,8 +58,12 @@ formSearch.addEventListener("submit", async (e) => {
   city.textContent = locationData.name;
   state.textContent = weatherData.state;
   week_day.textContent = weekDay;
-  temp.textContent = weatherData.current_temp + 'º'
-  high_temp.textContent = weatherData.max_temp + 'º'
-  low_temp.textContent = weatherData.min_temp + 'º'
-  wind.textContent = weatherData.wind_speed + 'Km/h'
+  temp.textContent = weatherData.current_temp + "º";
+  high_temp.textContent = weatherData.max_temp + "º";
+  low_temp.textContent = weatherData.min_temp + "º";
+  wind.textContent = weatherData.wind_speed + " Km/h";
+
+  if ((cards.style.display = "none")) {
+    cards.style.display = "flex";
+  }
 });
