@@ -2,7 +2,7 @@ const formSearch = document.querySelector("#formulario");
 const searchBar = document.querySelector(".submit input[type='text']");
 const city = document.querySelector("#city");
 const week_day = document.querySelector("#day");
-const state = document.querySelector("#state");
+const country = document.querySelector("#country");
 const temp = document.querySelector("#temperature");
 const high_temp = document.querySelector("#high-temp");
 const low_temp = document.querySelector("#low-temp");
@@ -31,7 +31,7 @@ async function getLocation(location) {
     const result = data.results[0];
     return {
       name: result.admin2,
-      state: result.admin1,
+      country: result.country,
       lat: result.latitude,
       long: result.longitude,
     };
@@ -59,13 +59,13 @@ searchBar.addEventListener("keydown", async (e) => {
     const location = searchBar.value.trim();
     const locationData = await getLocation(location);
     const weatherData = await getWeather(location);
-    city.textContent = locationData.name;
-    state.textContent = weatherData.state;
+    city.textContent = `${locationData.name},`;
+    country.textContent = locationData.country;
     week_day.textContent = weekDay;
     temp.textContent = weatherData.current_temp + "º";
-    high_temp.textContent = weatherData.max_temp + "º";
-    low_temp.textContent = weatherData.min_temp + "º";
-    wind.textContent = weatherData.wind_speed + " Km/h";
+    high_temp.textContent = "High: " + weatherData.max_temp + "º";
+    low_temp.textContent = "Low: " + weatherData.min_temp + "º";
+    wind.textContent = "Wind: " + weatherData.wind_speed + " Km/h";
 
     if ((cards.style.display = "none")) {
       cards.style.display = "flex";

@@ -4,53 +4,64 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
     <title>Weather App</title>
   </head>
   <body>
     <!-- Global Div -->
     <div class="main">
       <!-- Submit -->
-      
+
       <div class="submit">
-            <div class="search-input-icon">
-              <input type="text" placeholder="Search a city" />
-              <img class="search-icon" src="/weather-site/assets/search.svg" alt="">
-            </div>
-            <ul class="search-list"><li>oi</li></ul>
-      </div>
-      <!-- Cards -->
-      <div class="cards-div">
-        <div class="card">
-          <h2 id="city"></h2>
-          <h3 id="day"></h3>
+        <div class="search-input-icon">
+          <input type="text" placeholder="Search a city" />
           <img
-          class="weather-icon"
-          src="/weather-site/assets/clear-day.svg"
-          alt=""
+            class="search-icon"
+            src="/weather-site/assets/search.svg"
+            alt=""
           />
+        </div>
+        <ul class="search-list">
+          <li>oi</li>
+        </ul>
+      </div>
+      <!-- Card -->
+      <div class="cards-div">
+        <!-- Card's left side -->
+        <div class="card-left">
+          <div class="city-country">
+            <h2 id="city"></h2>
+            <h2 id="country"></h2>
+          </div>
+          <h4 id="day"></h4>
+          <img
+            class="weather-icon"
+            src="/weather-site/assets/clear-day.svg"
+            alt=""
+          />
+          <div class="parameter">
+            <h4 id="high-temp">High:</h4>
+            <h4 id="low-temp">Low:</h4>
+          </div>
+        </div>
+
+        <!-- Card's right side -->
+        <div class="card-right">
           <h2 id="temperature"></h2>
-          <h3 id="state"></h3>
-          <!-- Div Highest Temp, Low Temp, Wind -->
-          <div class="parameter-main">
-            <div class="parameter">
-              <img src="/weather-site/assets/high-temp.svg" alt="" />
-              <h3 id="high-temp"></h3>
-            </div>
-            <div class="linha-vertical"></div>
-            <div class="parameter">
-              <img src="/weather-site/assets/low-temp.svg" alt="" />
-              <h3 id="low-temp"></h3>
-            </div>
-            <div class="linha-vertical"></div>
-            <div class="parameter">
-              <img src="/weather-site/assets/wind.svg" alt="" />
-              <h3 id="wind"></h3>
-            </div>
+          <div class="parameter">
+            <h4 id="humidity"></h4>
+            <h4 id="wind"></h4>
           </div>
         </div>
       </div>
+      <!-- Horizontal Rule -->
+      <div class="hr"></div>
     </div>
     <script src="script.js"></script>
   </body>
-  </html>
-  
+</html>
