@@ -7,8 +7,9 @@ const temp = document.querySelector("#temperature");
 const high_temp = document.querySelector("#high-temp");
 const low_temp = document.querySelector("#low-temp");
 const wind = document.querySelector("#wind");
-const cards = document.querySelector(".card");
+const cards = document.querySelector(".cards-div");
 const searchList = document.querySelector(".search-list");
+const hr = document.querySelector(".hr");
 
 const days = [
   "Sunday",
@@ -43,7 +44,7 @@ async function getLocation(location) {
 async function getWeather(location) {
   const { lat, long } = await getLocation(location);
   const res = await fetch(
-    `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&daily=temperature_2m_max,temperature_2m_min&current=temperature_2m,wind_speed_10m&timezone=auto&forecast_days=1`
+    `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&daily=temperature_2m_max,temperature_2m_min&current=temperature_2m,wind_speed_10m,isday&timezone=auto&forecast_days=1`
   );
   const data = await res.json();
   return {
@@ -67,8 +68,9 @@ searchBar.addEventListener("keydown", async (e) => {
     low_temp.textContent = "Low: " + weatherData.min_temp + "º";
     wind.textContent = "Wind: " + weatherData.wind_speed + " Km/h";
 
-    if ((cards.style.display = "none")) {
+    if (getComputedStyle(cards).display === "none" && getComputedStyle(hr).display === "none") {
       cards.style.display = "flex";
+      hr.style.display = "flex";
     }
   }
 });

@@ -50,7 +50,7 @@ body {
 }
 
 .cards-div {
-  display: flex;
+  display: none;
   width: 50%;
   height: 50%;
 }
@@ -97,10 +97,6 @@ h3 {
 #day {
   margin-top: -15px;
   font-weight: 400;
-}
-
-.weather-icon {
-  margin-top: 20%;
 }
 
 .search-list {
@@ -154,4 +150,5 @@ h3 {
   border: darkgrey 1px solid;
   width: 50%;
   margin-top: 2%;
+  display: none;
 }
