@@ -23,17 +23,21 @@ const today = new Date();
 const weekDay = days[today.getDay()];
 
 async function getLocation(location) {
-  const res = await fetch(
-    `https://geocoding-api.open-meteo.com/v1/search?name=${location}&count=10&language=en&format=json`
-  );
-  const data = await res.json();
-  const result = data.results[0];
-  return {
-    name: result.admin2,
-    state: result.admin1,
-    lat: result.latitude,
-    long: result.longitude,
-  };
+  try {
+    const res = await fetch(
+      `https://geocoding-api.open-meteo.com/v1/search?name=${location}&count=10&language=en&format=json`
+    );
+    const data = await res.json();
+    const result = data.results[0];
+    return {
+      name: result.admin2,
+      state: result.admin1,
+      lat: result.latitude,
+      long: result.longitude,
+    };
+  } catch (err) {
+    alert("Error: Type a valid city" + "\n" + "You typed: " + searchBar.value);
+  }
 }
 
 async function getWeather(location) {
