@@ -3,17 +3,17 @@ html {
 }
 
 body {
-  background: #1974d2;
-  background: linear-gradient(
-    180deg,
-    rgba(25, 116, 210, 1) 57%,
-    rgba(242, 243, 244, 1) 100%
-  );
+  transition: background 1s ease;
+  background: linear-gradient(180deg, rgba(25, 116, 210, 1) 57%, rgba(242, 243, 244, 1) 100%);
   box-sizing: border-box;
   width: 100%;
   height: 100%;
   margin: 0;
   font-family: "Poppins", sans-serif;
+}
+
+h2,h4{
+  color: #f2f3f4;
 }
 
 .main {
@@ -55,43 +55,24 @@ body {
   height: 50%;
 }
 
-.card {
-  border: #f2f3f4 1px solid;
-  width: 20%;
-  height: 80%;
-  margin: 20px;
-  display: flex;
-  flex-direction: column;
-  border-radius: 5px;
-  align-items: center;
-  display: none;
-
-  -webkit-box-shadow: 10px 10px 5px 0px #00000059;
-  -moz-box-shadow: 10px 10px 5px 0px #00000059;
-  box-shadow: 10px 10px 5px 0px #00000059;
-}
-
-.card h2,
-h3 {
-  color: #f2f3f4;
-}
 
 .weather-icon {
   width: 64px;
   height: 64px;
+  margin-bottom: 2%;
 }
 
 .parameter {
   display: flex;
-  margin: 20px;
   margin-bottom: 0;
   justify-content: space-between;
   width: 50%;
 }
 
 
-.parameter h3 {
-  margin-top: 5px;
+.parameter h4 {
+  margin-top: 10%;
+  color: #f2f3f4;
 }
 
 #day {
@@ -135,8 +116,7 @@ h3 {
   display: flex;
 }
 
-.card-left,
-.card-right {
+.card-left, .card-right {
   display: flex;
   flex-direction: column;
   width: 50%;
@@ -151,4 +131,8 @@ h3 {
   width: 50%;
   margin-top: 2%;
   display: none;
+}
+
+#temperature{
+  font-size: 50px;
 }

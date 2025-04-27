@@ -10,6 +10,11 @@ const wind = document.querySelector("#wind");
 const cards = document.querySelector(".cards-div");
 const searchList = document.querySelector(".search-list");
 const hr = document.querySelector(".hr");
+const weatherIcon = document.querySelector(".weather-icon");
+const humidity = document.querySelector("#humidity");
+const body = document.querySelector(".body");
+const gradientDay = `linear-gradient(180deg, rgba(25, 116, 210, 1) 57%, rgba(242, 243, 244, 1) 100%)`;
+const gradientNight = `linear-gradient(180deg,rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 69%, rgba(0, 212, 255, 1) 100%)`;
 
 const days = [
   "Sunday",
@@ -31,7 +36,7 @@ async function getLocation(location) {
     const data = await res.json();
     const result = data.results[0];
     return {
-      name: result.admin2,
+      name: result.name,
       country: result.country,
       lat: result.latitude,
       long: result.longitude,
@@ -44,14 +49,19 @@ async function getLocation(location) {
 async function getWeather(location) {
   const { lat, long } = await getLocation(location);
   const res = await fetch(
-    `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&daily=temperature_2m_max,temperature_2m_min&current=temperature_2m,wind_speed_10m,isday&timezone=auto&forecast_days=1`
+    `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_mean&current=temperature_2m,relative_humidity_2m,is_day,wind_speed_10m,cloud_cover,rain&timezone=auto`
   );
   const data = await res.json();
   return {
-    max_temp: Math.round(data.daily.temperature_2m_max),
-    min_temp: Math.round(data.daily.temperature_2m_min),
+    max_temp: Math.round(data.daily.temperature_2m_max[0]),
+    min_temp: Math.round(data.daily.temperature_2m_min[0]),
     wind_speed: Math.round(data.current.wind_speed_10m),
     current_temp: Math.round(data.current.temperature_2m),
+    currentIsDay: data.current.is_day,
+    currentHumidity: data.current.relative_humidity_2m,
+    currentRain: data.current.rain,
+    currentCloudCover: data.current.cloud_cover,
+    dailyPrecipitation: data.daily.precipitation_probability_mean,
   };
 }
 
@@ -63,12 +73,39 @@ searchBar.addEventListener("keydown", async (e) => {
     city.textContent = `${locationData.name},`;
     country.textContent = locationData.country;
     week_day.textContent = weekDay;
-    temp.textContent = weatherData.current_temp + "º";
-    high_temp.textContent = "High: " + weatherData.max_temp + "º";
-    low_temp.textContent = "Low: " + weatherData.min_temp + "º";
+    temp.textContent = weatherData.current_temp + "ºC";
+    high_temp.textContent = "High: " + weatherData.max_temp + "ºC";
+    low_temp.textContent = "Low: " + weatherData.min_temp + "ºC";
     wind.textContent = "Wind: " + weatherData.wind_speed + " Km/h";
+    humidity.textContent = "Humidity: " + weatherData.currentHumidity + "%";
 
-    if (getComputedStyle(cards).display === "none" && getComputedStyle(hr).display === "none") {
+    // Checks the climate state
+    if (weatherData.currentIsDay === 1) {
+      body.style.background = gradientDay;
+      // Day
+      if (weatherData.currentRain > 0) {
+        weatherIcon.src = "./assets/heavy-rain.png"; // Day and Rain
+      } else if (weatherData.currentCloudCover > 50) {
+        weatherIcon.src = "./assets/cloudy.png"; // Day and Cloudy
+      } else {
+        weatherIcon.src = "./assets/sun.png"; // Clean day
+      }
+    } else {
+      body.style.background = gradientNight;
+      // Night
+      if (weatherData.currentRain > 0) {
+        weatherIcon.src = "./assets/heavy-rain.png"; // Night and Rain
+      } else if (weatherData.currentCloudCover > 50) {
+        weatherIcon.src = "./assets/cloudy.png"; // Night and Cloudy
+      } else {
+        weatherIcon.src = "./assets/crescent-moon.png"; // Clean night
+      }
+    }
+
+    if (
+      getComputedStyle(cards).display === "none" &&
+      getComputedStyle(hr).display === "none"
+    ) {
       cards.style.display = "flex";
       hr.style.display = "flex";
     }
