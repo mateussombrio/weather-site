@@ -4,7 +4,11 @@ html {
 
 body {
   transition: background 1s ease;
-  background: linear-gradient(180deg, rgba(25, 116, 210, 1) 57%, rgba(242, 243, 244, 1) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(25, 116, 210, 1) 57%,
+    rgba(242, 243, 244, 1) 100%
+  );
   box-sizing: border-box;
   width: 100%;
   height: 100%;
@@ -12,7 +16,8 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
-h2,h4{
+h2,
+h4 {
   color: #f2f3f4;
 }
 
@@ -55,7 +60,6 @@ h2,h4{
   height: 50%;
 }
 
-
 .weather-icon {
   width: 64px;
   height: 64px;
@@ -68,7 +72,6 @@ h2,h4{
   justify-content: space-between;
   width: 50%;
 }
-
 
 .parameter h4 {
   margin-top: 10%;
@@ -116,23 +119,47 @@ h2,h4{
   display: flex;
 }
 
-.card-left, .card-right {
+.card-left,
+.card-right {
   display: flex;
   flex-direction: column;
   width: 50%;
 }
 
-.city-country{
+.city-country {
   display: flex;
 }
 
-.hr{
+.hr {
   border: darkgrey 1px solid;
   width: 50%;
   margin-top: 2%;
   display: none;
 }
 
-#temperature{
+#temperature {
   font-size: 50px;
+}
+
+.forecast {
+  width: 70%;
+  height: 50%;
+  display: flex;
+}
+
+.forecast-card {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: 75%;
+  background-color: #f2f3f4;
+  margin-top: 5%;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  align-items: center;
+  margin-left: 2%;
+}
+
+p {
+  font-size: 16px;
 }

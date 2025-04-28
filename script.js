@@ -15,6 +15,7 @@ const humidity = document.querySelector("#humidity");
 const body = document.querySelector(".body");
 const gradientDay = `linear-gradient(180deg, rgba(25, 116, 210, 1) 57%, rgba(242, 243, 244, 1) 100%)`;
 const gradientNight = `linear-gradient(180deg,rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 69%, rgba(0, 212, 255, 1) 100%)`;
+const forecast = document.querySelector(".forecast");
 
 const days = [
   "Sunday",
@@ -49,7 +50,7 @@ async function getLocation(location) {
 async function getWeather(location) {
   const { lat, long } = await getLocation(location);
   const res = await fetch(
-    `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&daily=temperature_2m_max,temperature_2m_min,precipitation_probability_mean&current=temperature_2m,relative_humidity_2m,is_day,wind_speed_10m,cloud_cover,rain&timezone=auto`
+    `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${long}&daily=temperature_2m_max,temperature_2m_min,cloud_cover_mean,precipitation_probability_mean&current=temperature_2m,relative_humidity_2m,is_day,wind_speed_10m,cloud_cover,rain&timezone=auto`
   );
   const data = await res.json();
   return {
@@ -61,7 +62,6 @@ async function getWeather(location) {
     currentHumidity: data.current.relative_humidity_2m,
     currentRain: data.current.rain,
     currentCloudCover: data.current.cloud_cover,
-    dailyPrecipitation: data.daily.precipitation_probability_mean,
   };
 }
 
@@ -102,10 +102,20 @@ searchBar.addEventListener("keydown", async (e) => {
       }
     }
 
-    if (
-      getComputedStyle(cards).display === "none" &&
-      getComputedStyle(hr).display === "none"
-    ) {
+    for (let i = 0; i < 6; i++) {
+      // const forecastCard = document.createElement("div");
+      // const forecastDay = document.createElement("p");
+      // forecastCard.className = "forecast-card";
+      // forecastCardCreated = true
+      const forecastDay = document.querySelectorAll(`.forecast-card p`)
+      const weekDayForecast = days[(today.getDay() + i+1) % 7];
+      forecastDay[i].textContent = weekDayForecast;
+      // forecastCard.appendChild(forecastDay);
+      // forecast.appendChild(forecastCard)
+    }
+  
+
+    if (getComputedStyle(cards).display === "none" && getComputedStyle(hr).display === "none") {
       cards.style.display = "flex";
       hr.style.display = "flex";
     }
