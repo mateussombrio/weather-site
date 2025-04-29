@@ -26,7 +26,7 @@ h4 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 70%;
+  height: 100%;
 }
 
 .submit {
@@ -57,7 +57,9 @@ h4 {
 .cards-div {
   display: none;
   width: 50%;
-  height: 50%;
+  height: 30%;
+  justify-content: center;
+  align-items: center;
 }
 
 .weather-icon {
@@ -144,14 +146,14 @@ h4 {
 .forecast {
   width: 70%;
   height: 50%;
-  display: flex;
+  display: none;
 }
 
 .forecast-card {
   display: flex;
   flex-direction: column;
   width: 50%;
-  height: 75%;
+  height: 50%;
   background-color: #f2f3f4;
   margin-top: 5%;
   border-radius: 5px;
@@ -162,4 +164,17 @@ h4 {
 
 p {
   font-size: 16px;
+}
+
+.forecast-card img {
+  width: 36px;
+  height: 36px;
+}
+
+.max-temp {
+  font-size: 16px;
+}
+
+.min-temp {
+  font-size: 14px;
 }

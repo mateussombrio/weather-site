@@ -56,15 +56,19 @@ async function getWeather(location) {
   return {
     max_temp: Math.round(data.daily.temperature_2m_max[0]),
     min_temp: Math.round(data.daily.temperature_2m_min[0]),
+    dailyMaxTemp: data.daily.temperature_2m_max,
+    dailyMinTemp: data.daily.temperature_2m_min,
     wind_speed: Math.round(data.current.wind_speed_10m),
     current_temp: Math.round(data.current.temperature_2m),
     currentIsDay: data.current.is_day,
     currentHumidity: data.current.relative_humidity_2m,
     currentRain: data.current.rain,
     currentCloudCover: data.current.cloud_cover,
+    dailyCloudCover: data.daily.cloud_cover_mean,
+    dailyPrecipitation: data.daily.precipitation_probability_mean,
   };
 }
-
+//  Event from the search bar
 searchBar.addEventListener("keydown", async (e) => {
   if (e.key === "Enter") {
     const location = searchBar.value.trim();
@@ -79,45 +83,59 @@ searchBar.addEventListener("keydown", async (e) => {
     wind.textContent = "Wind: " + weatherData.wind_speed + " Km/h";
     humidity.textContent = "Humidity: " + weatherData.currentHumidity + "%";
 
-    // Checks the climate state
-    if (weatherData.currentIsDay === 1) {
-      body.style.background = gradientDay;
-      // Day
-      if (weatherData.currentRain > 0) {
-        weatherIcon.src = "./assets/heavy-rain.png"; // Day and Rain
-      } else if (weatherData.currentCloudCover > 50) {
-        weatherIcon.src = "./assets/cloudy.png"; // Day and Cloudy
+    // Verify if is day or night and change the background color
+    const toggleBackgroundDayNight = () => {
+      if (weatherData.currentIsDay === 1) {
+        body.style.background = gradientDay;
       } else {
-        weatherIcon.src = "./assets/sun.png"; // Clean day
+        body.style.background = gradientNight;
       }
-    } else {
-      body.style.background = gradientNight;
-      // Night
+    };
+
+    // Verify the climate state and change the icon
+    const toggleIcon = (iconClass, weatherData) => {
       if (weatherData.currentRain > 0) {
-        weatherIcon.src = "./assets/heavy-rain.png"; // Night and Rain
+        iconClass.src = "./assets/heavy-rain.png"; // Rain
       } else if (weatherData.currentCloudCover > 50) {
-        weatherIcon.src = "./assets/cloudy.png"; // Night and Cloudy
+        iconClass.src = "./assets/cloudy.png"; // Cloudy
       } else {
-        weatherIcon.src = "./assets/crescent-moon.png"; // Clean night
+        if (weatherData.currentIsDay === 1) {
+          iconClass.src = "./assets/sun.png"; // Clean day
+        } else {
+          iconClass.src = "./assets/crescent-moon.png";
+        }
       }
-    }
+    };
+
+    toggleBackgroundDayNight();
+    toggleIcon(weatherIcon, weatherData);
 
     for (let i = 0; i < 6; i++) {
-      // const forecastCard = document.createElement("div");
-      // const forecastDay = document.createElement("p");
-      // forecastCard.className = "forecast-card";
-      // forecastCardCreated = true
-      const forecastDay = document.querySelectorAll(`.forecast-card p`)
-      const weekDayForecast = days[(today.getDay() + i+1) % 7];
+      const forecastDay = document.querySelectorAll(`.week-day`);
+      const forecastImg = document.querySelectorAll(".forecast-card img");
+      const forecastMaxTemp = document.querySelectorAll(".max-temp")
+      const forecastMinTemp = document.querySelectorAll(".min-temp")
+      const weekDayForecast = days[(today.getDay() + i + 1) % 7];
       forecastDay[i].textContent = weekDayForecast;
-      // forecastCard.appendChild(forecastDay);
-      // forecast.appendChild(forecastCard)
-    }
-  
+      forecastMaxTemp[i].textContent = Math.round(weatherData.dailyMaxTemp[i+1]) + "ºC"
+      forecastMinTemp[i].textContent = Math.round(weatherData.dailyMinTemp[i+1]) + "ºC"
 
-    if (getComputedStyle(cards).display === "none" && getComputedStyle(hr).display === "none") {
+      if (weatherData.dailyPrecipitation[i] > 40) {
+        forecastImg[i].src = "./assets/heavy-rain.png"; // Rain
+      } else if (weatherData.dailyCloudCover[i] > 50) {
+        forecastImg[i].src = "./assets/cloudy.png"; // Cloudy
+      } else {
+        forecastImg[i].src = "./assets/sun.png";
+      }
+    }
+
+    if (
+      getComputedStyle(cards).display === "none" &&
+      getComputedStyle(hr).display === "none"
+    ) {
       cards.style.display = "flex";
       hr.style.display = "flex";
+      forecast.style.display = "flex"
     }
   }
 });
