@@ -34,3 +34,6 @@ A simple weather web application that fetches real-time weather data based on th
 3. Open the **index.html** file in your browser:
 - Just double-click the file
 - Or use the VSCode **Live Server** extension
+
+## 📄 License
+This project is open source and available under the MIT License.
